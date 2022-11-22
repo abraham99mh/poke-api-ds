@@ -4,7 +4,7 @@ import Card from './Card';
 
 import Pagination from './Pagination';
 
-const Pokemons = () => {
+const Pokemons = (props) => {
 
     const [pokemons, setPokemons] = useState([]);
 
@@ -34,7 +34,7 @@ const Pokemons = () => {
             <div className='row'>
                 {pokemons.map((pokemon, index) => {
                     return (
-                        <Card key={index} pokemon={pokemon} />
+                        <Card key={index} pokemon={pokemon} team={props.team} updateTeam={props.updateTeam}/>
                     )
                 })}
 
