@@ -7,7 +7,7 @@ function App() {
 
   const [input, setInput] = useState('');
 
-  const [team, updateTeam] = useState('');
+  const [team, updateTeam] = useState([]);
 
   const home = () => {
     setInput('');
@@ -20,7 +20,7 @@ function App() {
       <div className="text-bg-danger p-5">
         <div className='row'>
           <div className='col-9'>
-          {input ? <Results input={input} /> : <Pokemons />}
+          {input ? <Results input={input} /> : <Pokemons team={team} updateTeam={updateTeam}/>}
           </div>
           <div className='col-3'>
             Equipo xd
