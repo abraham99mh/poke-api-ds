@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Pokemons from './Pokemons';
 import Results from './Results';
 import Search from './Search';
+import Team from './Team';
+import axios from 'axios';
 
 function App() {
 
@@ -9,32 +11,38 @@ function App() {
 
   const [team, updateTeam] = useState([]);
 
+  const [teamData, updateTeamData] = useState([]);
+
+  const urlImg = "https://pokeapi.co/api/v2/pokemon/"
+  useEffect(() => {
+    updateTeamData([]);
+    for(let i = 0 ; i < team.length; i++){
+        axios
+            .get(urlImg + team[i])
+            .then((resp) => {
+              updateTeamData(prevArray => [...prevArray, resp.data]);
+            });
+    }
+  }, [team]);
+
+  
+
   const home = () => {
     setInput('');
+    console.log(teamData);
   }
 
-  const Team = () => {
-    let teamPkes = team.map((pokes, id) =>
-      <li key={id}>{pokes}</li>
-    );
-    return (
-      <ul>
-        {teamPkes}
-      </ul>
-    )
-  }
-
-  const quitar = () => {
-    let pos;
-    pos = team.length-1;
-    // console.log(pos);
-    // console.log(team[pos]);
-    // console.log(typeof(team));
-    team.pop();
-  }
-  useEffect(() => {
+  // const quitar = () => {
+  //   let pos;
+  //   pos = team.length-1;
+  //   // console.log(pos);
+  //   // console.log(team[pos]);
+  //   // console.log(typeof(team));
+  //   team.pop();
+  // }
+  // useEffect(() => {
     
-  }, [team]);
+  // }, [team]);
   
 
   return (
@@ -44,12 +52,10 @@ function App() {
       <div className="text-bg-danger p-5">
         <div className='row'>
           <div className='col-9'>
-            {input ? <Results input={input} /> : <Pokemons team={team} updateTeam={updateTeam} />}
+            {input ? <Results input={input} team={team} updateTeam={updateTeam} /> : <Pokemons team={team} updateTeam={updateTeam} />}
           </div>
           <div className='col-3'>
-            Mi Equipo Pokemon:
-            <Team />
-            <button onClick={quitar}>Eliminar último</button>
+            <Team teamData={teamData} team={team} updateTeam={updateTeam}/>
           </div>
         </div>
 

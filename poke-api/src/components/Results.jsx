@@ -28,7 +28,7 @@ const Results = (props) => {
             <>
                 <h2>{pokemon.name}</h2>
                 <div className='row'>
-                    <Card pokemon={pokemon} />
+                    <Card pokemon={pokemon} team={props.team} updateTeam={props.updateTeam} />
                 </div>
             </>
             :
