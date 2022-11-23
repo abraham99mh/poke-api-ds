@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Pokemons from './Pokemons';
 import Results from './Results';
 import Search from './Search';
@@ -24,6 +24,19 @@ function App() {
     )
   }
 
+  const quitar = () => {
+    let pos;
+    pos = team.length-1;
+    // console.log(pos);
+    // console.log(team[pos]);
+    // console.log(typeof(team));
+    team.pop();
+  }
+  useEffect(() => {
+    
+  }, [team]);
+  
+
   return (
     <div className="container-fluid mt-4 px-0">
       <Search input={input} setInput={setInput} />
@@ -36,6 +49,7 @@ function App() {
           <div className='col-3'>
             Mi Equipo Pokemon:
             <Team />
+            <button onClick={quitar}>Eliminar último</button>
           </div>
         </div>
 

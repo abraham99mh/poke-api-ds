@@ -15,7 +15,7 @@ const Card = (props) => {
     const agregarTeam = () => {
         let exist = false;
         let poke = props.pokemon.name;
-        console.log(poke);
+        //console.log(poke);
         for (let i = 0; i < props.team.length; i++) {
             if (poke === props.team[i]) {
                 exist = true;
