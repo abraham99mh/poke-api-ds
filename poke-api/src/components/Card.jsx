@@ -2,16 +2,30 @@ import React from 'react';
 
 const Card = (props) => {
 
-    const ShowButton = () =>{
+    const ShowButton = () => {
         console.log(props.team.length);
-        if(props.team.length<5){
-            return(
+        if (props.team.length < 5) {
+
+            return (
                 <button className='btn btn-danger' onClick={agregarTeam}>Agregar</button>
             )
+
         }
     }
     const agregarTeam = () => {
-        props.updateTeam(prevArray => [...prevArray, props.pokemon.name]);
+        let exist = false;
+        let poke = props.pokemon.name;
+        console.log(poke);
+        for (let i = 0; i < props.team.length; i++) {
+            if (poke === props.team[i]) {
+                exist = true;
+            }
+        };
+        if (!exist) {
+            props.updateTeam(prevArray => [...prevArray, props.pokemon.name]);
+        } else {
+            alert('Ya está en el equipo');
+        }
     }
 
     return (
@@ -22,7 +36,7 @@ const Card = (props) => {
                         <img
                             src={props.pokemon.sprites.front_default}
                             className="img-fluid w-100 rounded-start"
-                            
+
                             alt={props.pokemon.name}>
                         </img>
                     </div>
@@ -30,10 +44,10 @@ const Card = (props) => {
                         <div className="card-body">
                             <h5 className="card-title text-uppercase">{props.pokemon.name}</h5>
                             <p className='text-uppercase'>{props.pokemon.types.map((t, i) => {
-                                return(
+                                return (
                                     <span className='me-1' key={i} >-{t.type.name}</span>
                                 )
-                                })}
+                            })}
                             </p>
                             <p className='text-uppercase'>Salud: {props.pokemon.stats[0].base_stat}</p>
                             <p className='text-uppercase'>Ataque: {props.pokemon.stats[1].base_stat}</p>
@@ -41,7 +55,7 @@ const Card = (props) => {
                         </div>
                     </div>
                     <div className='col-12 col-md-3 pt-5'>
-                        <ShowButton/>
+                        <ShowButton />
                     </div>
                 </div>
             </div>
